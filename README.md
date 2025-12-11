@@ -25,10 +25,6 @@ The instalocker waits for the agent select phase and automatically locks the age
 
 🎥 Demo Video
 
-(Add your video link here)
-
-Example:
-
 [![Demo Video](https://img.youtube.com/vi/xxx/0.jpg)](https://www.youtube.com/watch?v=xxx)
 
 📦 Installation
