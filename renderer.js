@@ -82,6 +82,7 @@ let isRunning = false;
 let isConnected = false;
 let lastConnectionState = false;
 let currentMatchId = null;
+let connectionAttempts = 0;
 
 let apiState = {
   port: null,
@@ -130,26 +131,33 @@ async function checkValorantConnection() {
       if (lockfile.success) {
         const parts = lockfile.content.split(':');
         if (parts.length < 5) {
-          if (!lastConnectionState) addLog('❌ Invalid lockfile', '#ff6464');
+          if (!lastConnectionState && connectionAttempts === 0) {
+            addLog('❌ Invalid lockfile', '#ff6464');
+          }
+          connectionAttempts++;
           return false;
         }
         apiState.port = parts[2];
         apiState.password = parts[3];
         const auth = await ipcRenderer.invoke('api-get-auth', apiState.port, apiState.password);
         if (!auth.success) {
-          if (!lastConnectionState) addLog('❌ Failed to auth', '#ff6464');
+          connectionAttempts++;
           return false;
         }
         apiState.accessToken = auth.accessToken;
         apiState.entitlement = auth.entitlement;
         const puuid = await ipcRenderer.invoke('api-get-puuid', apiState.port, apiState.password);
         if (!puuid.success) {
-          if (!lastConnectionState) addLog('❌ Failed to get PUUID', '#ff6464');
+          if (!lastConnectionState && connectionAttempts === 0) {
+            addLog('❌ Failed to get PUUID', '#ff6464');
+          }
+          connectionAttempts++;
           return false;
         }
         apiState.puuid = puuid.puuid;
         isConnected = true;
         lastConnectionState = true;
+        connectionAttempts = 0;
         updateConnectionStatus(true);
         addLog('✅ Connected to VALORANT!', '#64ffb4');
         return true;
@@ -157,15 +165,19 @@ async function checkValorantConnection() {
     } else if (!running && isConnected) {
       isConnected = false;
       lastConnectionState = false;
+      connectionAttempts = 0;
       updateConnectionStatus(false);
       addLog('⚠️ VALORANT closed', '#ff6464');
       stopInstalocker();
     }
     return isConnected;
   } catch (e) {
-    if (lastConnectionState) addLog(`❌ Error: ${e.message}`, '#ff6464');
+    if (lastConnectionState && connectionAttempts === 0) {
+      addLog(`❌ Error: ${e.message}`, '#ff6464');
+    }
     isConnected = false;
     lastConnectionState = false;
+    connectionAttempts++;
     updateConnectionStatus(false);
     return false;
   }
@@ -207,10 +219,10 @@ function updateSelectedAgentDisplay(name, role, color) {
 
 function getRoleColor(role) {
   return {
-    'Duelist': '#ff6464',
-    'Initiator': '#ffc864',
-    'Controller': '#9678ff',
-    'Sentinel': '#64ffb4'
+    'Duelist': '#ff4655',
+    'Initiator': '#ffb84d',
+    'Controller': '#7b6be8',
+    'Sentinel': '#4dffb8'
   }[role] || '#969696';
 }
 
