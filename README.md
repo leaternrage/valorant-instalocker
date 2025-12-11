@@ -19,9 +19,13 @@ The instalocker waits for the agent select phase and automatically locks the age
 🎨 Features
 
 -Instant agent locking
+
 -Simple, clean Electron interface
+
 -Fast and smooth performance
+
 -Easy setup and usage
+
 
 🎥 Demo Video
 
