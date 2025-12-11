@@ -25,7 +25,7 @@ The instalocker waits for the agent select phase and automatically locks the age
 
 🎥 Demo Video
 
-[![Demo Video](https://img.youtube.com/vi/xxx/0.jpg)](https://www.youtube.com/watch?v=xxx)
+[![Demo Video](https://img.youtube.com/vi/RXhfRuLofV8/0.jpg)](https://www.youtube.com/watch?v=RXhfRuLofV8)
 
 📦 Installation
 git clone https://github.com/leaternrage/REPO.git
