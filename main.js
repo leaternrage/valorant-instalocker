@@ -39,7 +39,6 @@ function createWindow() {
   });
 
   mainWindow.loadFile('index.html');
-  // mainWindow.webContents.openDevTools(); // KALDIRILDI
 }
 
 app.whenReady().then(async () => {
@@ -230,4 +229,5 @@ ipcMain.handle('api-check-locked', async (event, region, shard, matchId, puuid, 
   } catch (error) {
     return { success: false, error: error.message };
   }
+
 });
