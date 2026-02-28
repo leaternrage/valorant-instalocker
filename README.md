@@ -1,4 +1,4 @@
-You can use the more advanced version at xorbyte.org.
+You can use the more advanced version at https://xorbyte.org
 
 [![Demo Video](https://img.youtube.com/vi/Nsy63qAkZxc/0.jpg)](https://www.youtube.com/watch?v=Nsy63qAkZxc)
 
